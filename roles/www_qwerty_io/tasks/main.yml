@@ -1,0 +1,37 @@
+---
+- name: qwerty_io/create pool
+  bigip_pool:
+    name: www-qwerty-io
+    partition: Common
+    lb_method: least-connections-member
+    slow_ramp_time: 120
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+
+- name: qwerty_io/add ALL nodes in inventory loop_group
+  bigip_node:
+    host: "{{ hostvars[item]['ansible_host'] }}"
+    name: "{{ hostvars[item]['inventory_hostname'] }}"
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+  with_items: "{{ groups['loop_group'] }}"
+
+- name: qwerty_io/add all servers in the qwerty_io to the pool
+  bigip_pool_member:
+    state: present
+    pool: www-qwerty-io
+    partition: Common
+    host: "{{ item }}"
+    port: 80
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+  with_items: "{{ groups['loop_group'] }}"

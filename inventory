@@ -1,0 +1,15 @@
+[f5]
+lb1 ansible_host=192.168.111.128
+
+[example_com]
+server1.example.local ansible_host="192.168.111.11"
+server2.example.local ansible_host="192.168.111.12"
+server3.example.local ansible_host="192.168.111.13"
+
+[example_com_maint]
+server3.example.local ansible_host=192.168.111.13
+
+[loop_group]
+server11.example.local ansible_host="192.168.5.11"
+server12.example.local ansible_host="192.168.5.12"
+server13.example.local ansible_host="192.168.5.13"

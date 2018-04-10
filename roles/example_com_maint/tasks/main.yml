@@ -1,0 +1,14 @@
+---
+- name: example_com_maint/pull systems out for maintenance
+  bigip_pool_member:
+    state: absent
+    pool: www-example-com
+    partition: Common
+    port: 80
+    name: "{{ item }}"
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+  with_items: "{{ groups['example_com_maint'] }}"

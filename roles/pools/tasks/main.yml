@@ -1,0 +1,15 @@
+---
+- name: pools/create all the pools
+  bigip_pool:
+    name: "{{ item.name }}"
+    partition: "{{ item.partition }}"
+    lb_method: "{{ item.method }}"
+    slow_ramp_time: 120
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+  with_items:
+    - { name: www-example-com, partition: Common, method: least-connections-member }
+    - { name: www-qwerty-io, partition: Common, method: ratio-node }

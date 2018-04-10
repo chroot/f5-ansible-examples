@@ -1,0 +1,56 @@
+---
+- name: example_com/create pool
+  bigip_pool:
+    name: www-example-com
+    partition: Common
+    lb_method: least-connections-member
+    slow_ramp_time: 120
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+
+- name: example_com/add server1 as a nodes
+  bigip_node:
+    host: 192.168.111.11
+    name: server1.example.local
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+
+- name: example_com/add server2 as a nodes
+  bigip_node:
+    host: 192.168.111.12
+    name: server2.example.local
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+
+- name: example_com/add server3 as a nodes
+  bigip_node:
+    host: 192.168.111.13
+    name: server3.example.local
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+
+- name: example_com/add all servers in the example_com to the pool
+  bigip_pool_member:
+    state: present
+    pool: www-example-com
+    partition: Common
+    host: "{{ item }}"
+    port: 80
+    server: "{{ bigip_ip }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost
+  with_items: "{{ groups['example_com'] }}"

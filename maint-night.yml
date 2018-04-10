@@ -1,0 +1,7 @@
+---
+
+- name: Setup www.example.local on F5
+  hosts: f5
+
+  roles:
+    - { role: example_com_maint, tags: example_com_maint }

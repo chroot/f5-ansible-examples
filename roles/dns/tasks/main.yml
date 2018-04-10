@@ -1,0 +1,13 @@
+---
+- name: Set the DNS settings on the BIG-IP
+  bigip_device_dns:
+    name_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+    search:
+      - example.local
+    server: "{{ inventory_hostname }}"
+    user: "{{ bigip_username }}"
+    password: "{{ bigip_password }}"
+    validate_certs: "{{ validate_certs }}"
+  delegate_to: localhost

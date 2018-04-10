@@ -1,0 +1,12 @@
+---
+- hosts: f5
+
+  tasks:
+          - name: Save the running configuration of the BIG-IP
+            bigip_config:
+                    save: yes
+                    server: "{{ bigip_ip }}"
+                    password: "{{ bigip_password }}"
+                    user: "{{ bigip_username }}"
+                    validate_certs: no
+            delegate_to: localhost

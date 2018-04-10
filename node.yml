@@ -1,0 +1,16 @@
+---
+
+- name: Setup www.example.local on F5
+  hosts: f5
+
+  tasks:
+          - name: example_com/add server2 as a nodes
+            bigip_node:
+              host: "{{ hostvars[item]['ansible_host'] }}"
+              name: "{{ hostvars[item]['inventory_hostname'] }}"
+              server: "{{ bigip_ip }}"
+              user: "{{ bigip_username }}"
+              password: "{{ bigip_password }}"
+              validate_certs: "{{ validate_certs }}"
+            delegate_to: localhost
+            with_items: "{{ groups['loop_group'] }}"

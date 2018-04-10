@@ -1,0 +1,6 @@
+---
+
+- hosts: f5
+
+  roles:
+    - pools
