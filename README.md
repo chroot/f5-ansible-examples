@@ -57,6 +57,12 @@ Roles
    * www_qwerty_io
       * *www_qwerty_io* was my banging the head on the desk until I got it right.  I didn't want to have to edit every role when I added servers. When you start talking about possible containers being nodes this makes even less sense.  So I found all of my required items to only rely on my inventory file.  If you need 12 more servers in *www_qwerty_io* you add them to it's inventory *loop_group* ( Yea I know... but hey it was 2 AM ).  By adding this and running via *AWX* or *Ansible Tower* you no longer need to configure the F5 by hand.
 
+
+Requirments
+=======
+* Ansible 2.5
+* pip install bigsuds
+
 Authors
 =======
 I used at least 1/2 of the Ansible pages provided by Google so if you see something and say "Hey I wrote that" please let me know, I assure you had I know I would have sourced it properly.
