@@ -5,7 +5,7 @@ Below are a list of roles that I found useful in controlling a BIG-IP F5.  Many 
 
 I'll attempt to break down each one of these items in the roles below.
 One important item though, because the network equipment requires everything run locally you need to provide connection information per-task.  I hate this.</br>
-Vecause of this I used the *all* group_vars.  This gave me access to the F5 login and IP data.  So if you can't connect check there and *PLEASE* use *ansible vault* to protect that file when in production.
+Because of this I used the *all* group_vars.  This gave me access to the F5 login and IP data.  So if you can't connect check there and *PLEASE* use *ansible vault* to protect that file when in production.
 
 .</br>
 ├── ad-hoc</br>
@@ -58,7 +58,7 @@ Roles
       * *www_qwerty_io* was my banging the head on the desk until I got it right.  I didn't want to have to edit every role when I added servers. When you start talking about possible containers being nodes this makes even less sense.  So I found all of my required items to only rely on my inventory file.  If you need 12 more servers in *www_qwerty_io* you add them to it's inventory *loop_group* ( Yea I know... but hey it was 2 AM ).  By adding this and running via *AWX* or *Ansible Tower* you no longer need to configure the F5 by hand.
 
 
-Requirments
+Requirements
 =======
 * Ansible 2.5
 * pip install bigsuds
